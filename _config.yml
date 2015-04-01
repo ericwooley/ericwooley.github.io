@@ -1,0 +1,30 @@
+# Site settings
+title: EricWooley
+tagline: codes stuff
+email: ericwooley@gmail.com
+
+description: Eric Wooley's github blog yay!
+
+# Dependencies
+markdown:            redcarpet
+highlighter:         pygments
+
+# Permalinks
+#
+# Use of `relative_permalinks` ensures post links from the index work properly.
+permalink:           pretty
+relative_permalinks: true
+
+# Setup
+url:                 http://ericwooley.github.io
+baseurl:             /
+paginate:            5
+
+# About/contact
+author:
+  name:              Mark Otto
+  url:               https://twitter.com/mdo
+  email:             markdotto@gmail.com
+
+# Custom vars
+version:             1.0.0
