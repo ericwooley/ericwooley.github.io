@@ -4,6 +4,10 @@ title:  "Using ImmutableJS"
 date:   2015-04-01 09:50:45
 categories: immutablejs react
 ---
+
+If you don't know what ImmutableJS is, it's written by facebook and can be used to make very fast react applications.
+[Check out this video](https://www.youtube.com/watch?v=I7IdS-PbEgI) for a better explanation than I could give you 
+
 ImmutableJS is an implementation of persistent data structures and is extremely powerful, so long as you understand and use the data structures properly.
 However, understanding (much less using) the ImmutableJS data structures are extremely hard to use because the docs are unhelpful and confusing.
 This post is to address which data structures you should use and you should use and when to use them.
