@@ -13,9 +13,16 @@ However, understanding (much less using) the ImmutableJS data structures are ext
 This post is to address which data structures you should use and you should use and when to use them.
 
 # Navigation
+* [Watch Out](#watchout)
 * [Performance](#performance)
 * [Key terms](#keyterms)
 * [Data Structures](#datastructures)
+
+## <a name="watchout">Watch Out (Some things that got me)</a>
+
+1. toArray(), toJS(), and toObject() do not return a new thing, they convert the immutable object in place. Which is decieving
+  because these are the only things like that (that I have found).
+
 
 ## <a name="performance" >Some quick perfomance considerations.</a>
 
@@ -63,23 +70,19 @@ But why is it so slow? Because every time you push you are also copying the enti
 _So what is the answer? Is there a better way._
 My first thought was to create the array at blazing speed, then create the Immutable List and be on my merry way!
 
-<s>Reality didn't match my expectation however (27 per second)</s>
+Reality didn't match my expectation however (27 per second)
 
 {% highlight javascript %}
 for (var i = 0; i < testSize; i++) {
   jsArr.push(i);
 }
-//imList = Immutable.List(jsArr); // This is wrong as it turns out.
-imList = Immutable.List.of(jsArr);
+imList = Immutable.List(jsArr); 
 {% endhighlight %}
 
-<s>Why didn't that work? Well transforming a giant array into a different datastructure isn't as performant as I would have hoped.</s>
-
-This actually worked very close to native performance (218 per second) . However, the docs give no hints as to why.
-Which is precicely why this article was started.
+Why didn't that work? Well transforming a giant array into a different datastructure isn't as performant as I would have hoped.
 
 --------------------------------------------------------------------------------------------------------------
-<s>Finally I stubmled on, what I consider, to be the best answer. </s> (see ^)
+Finally I stubmled on, what I consider, to be the best answer.
 
 There is a function called `withMutations` which gives you a mutatable version as a callback, which you can mutate mutliple times
 without worrying about shallow copies happening every time (49 per second).
@@ -106,8 +109,8 @@ _Uhm what? 15,879,672 per second? 75979 times faster than a javascript array? Wh
 
 Range is a version of Seq (sequence) which is lazy, and won't do any work until you need to use it. So if you
 can think of a case where you **might** need an array of 999999 elements, then this is perfect for you. I,
-however, can't think of such a case. While this seems like a cool thing to have access too, I haven't found any
-practical uses.
+however, can't think of such a case. While this seems like a cool thing to have access too, I haven't found any practical uses.
+
 --------------------------------------------------------------------------------------------------------------
 ## <a name="keyterms">Some Key terms</a>
 
