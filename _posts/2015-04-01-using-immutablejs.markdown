@@ -8,7 +8,80 @@ ImmutableJS is an implementation of persistent data structures and is extremely 
 However, understanding (much less using) the ImmutableJS data structures are extremely hard to use because the docs are unhelpful and confusing.
 This post is to address which data structures you should use and you should use and when to use them.
 
+## Some quick perfomance considerations.
+
+ImmutableJS does a shallow copy of an object every time you mutate it, which can have massive perforamance implications.
+If you don't consider your data structers while working with them you can freeze up your page really easily. 
+[if you run performance test](http://jsperf.com/with-out-mutatable) it will be clear that one way of doing things is 
+extremely slow, and one is fast, but neither are nearly as fast as plain javascript.
+
+###Lets break down the code
+
+Here is our setup
+{% highlight javascript %}
+// Variable Declarations
+var arr = Immutable.List(),
+  jsArr = [],
+  testSize = 100000;
+{% endhighlight %}
+
+In this example we are creating an array filled with 0 - 99999.
+Since we are all famialiar with javascript. Here is how most of us would do it.
+
+--------------------------------------------------------------------------------------------------------------
+This is the regular way, and is, comparatively, blazingly fast (209 per second).
+
+{% highlight javascript %}
+for (var i = 0; i < testSize; i++) {
+  jsArr.push(i);
+}
+{% endhighlight %}
+
+--------------------------------------------------------------------------------------------------------------
+
+Here is the wrong way to do it, and it's painfully slow (11 per second).
+
+{% highlight javascript %}
+for (var i = 0; i < testSize; i++) {
+  imList = imList.push(i);
+}
+{% endhighlight %}
+
+But why is it so slow? Because every time you push you are also copying the entire list!
+
+--------------------------------------------------------------------------------------------------------------
+
+_So what is the answer? Is there a better way._
+My first thought was to create the array at blazing speed, then create the Immutable List and be on my merry way!
+
+Reality didn't match my expectation however (27 per second)
+
+{% highlight javascript %}
+for (var i = 0; i < testSize; i++) {
+  jsArr.push(i);
+}
+imList = Immutable.List(jsArr);
+{% endhighlight %}
+
+Why didn't that work? Well transforming a giant array into a different datastructure isn't as performant as I would have hoped.
+
+--------------------------------------------------------------------------------------------------------------
+Finally I stubmled on, what I consider, to be the best answer. 
+
+There is a function called `withMutations` which gives you a mutatable version as a callback, which you can mutate mutliple times
+without worrying about shallow copies happening every time.
+
+{% highlight javascript %}
+for (var i = 0; i < testSize; i++) {
+  jsArr.push(i);
+}
+imList = Immutable.List(jsArr);
+{% endhighlight %}
+
+--------------------------------------------------------------------------------------------------------------
+
 ## Some Key terms
+
 1. keypath: Throughout these immutablejs docs, you will see this term. It is just a path to access nested properties. 
   EX: `'steve.pants.leftPocket.wallet.creditCardSlots.1'`
 
@@ -30,7 +103,8 @@ This post is to address which data structures you should use and you should use 
 
 ###[List](https://facebook.github.io/immutable-js/docs/#/List)
 
-  Most like a javascript array in that its contents are kept in order. However, you might find this less useful than a javascript array because it's contents are not mutable.
+  Most like a javascript array in that its contents are kept in order. However, you might find this less useful than a javascript array because it's contents are not mutatable.
+  
 
   _Consider the following scenario:_
 
@@ -100,6 +174,7 @@ This post is to address which data structures you should use and you should use 
   I must admit I am a big confused by this one. Feel free to fork and submit a pull request with an explanation.
   The reason I am confused is because:
   >Because Seq are often lazy, SetSeq does not provide the same guarantee of value uniqueness as the concrete Set.
+  I don't see the purpose of having a set that doesn't guaruntee uniqueness and don't recommend using this unless you have a good reason.
 
 
 
