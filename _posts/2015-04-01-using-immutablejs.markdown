@@ -28,7 +28,7 @@ This post is to address which data structures you should use and you should use 
 
 ImmutableJS does a shallow copy of an object every time you mutate it, which can have massive perforamance implications.
 If you don't consider your data structers while working with them you can freeze up your page really easily. 
-[if you run performance test](http://jsperf.com/with-out-mutatable) it will be clear that one way of doing things is 
+[if you run performance test](http://jsperf.com/with-out-mutatable/2) it will be clear that one way of doing things is 
 extremely slow, and one is fast, but neither are nearly as fast as plain javascript.
 
 ###Lets break down the code
