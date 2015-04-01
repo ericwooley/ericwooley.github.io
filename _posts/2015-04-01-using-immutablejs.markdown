@@ -79,7 +79,7 @@ This actually worked very close to native performance (218 per second) . However
 Which is precicely why this article was started.
 
 --------------------------------------------------------------------------------------------------------------
-<s>Finally I stubmled on, what I consider, to be the best answer. </s>
+<s>Finally I stubmled on, what I consider, to be the best answer. </s> (see ^)
 
 There is a function called `withMutations` which gives you a mutatable version as a callback, which you can mutate mutliple times
 without worrying about shallow copies happening every time (49 per second).
