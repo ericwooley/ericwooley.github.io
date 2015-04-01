@@ -71,6 +71,7 @@ This post is to address which data structures you should use and you should use 
   An ordered set guarantees the order at a memory cost.
 
 ###[Stack](http://facebook.github.io/immutable-js/docs/#/Stack)
+  
   A [stack](http://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29) is a data structure where items are always inserted at the top (or beginning) and removed from the top.
   This data structure is extremely efficient at inserting and removing elements but horribly inefficient at accessing any element in the data structure with the exception of the first one. 
 
@@ -85,6 +86,20 @@ This post is to address which data structures you should use and you should use 
   >
   > Every time the user clicks that button, they will be transported back in time.
 
+###[Seq](http://facebook.github.io/immutable-js/docs/#/Seq)
+  
+  An Seq is like a list but its lazy, so operations you apply to them won't be performed until the sequence is accessed. Which has intense implications. 
+  I won't say too much on sequences because this is one of the few areas that ImmutableJS is well documented.
+
+###[KeyedSeq](http://facebook.github.io/immutable-js/docs/#/KeyedSeq)
+
+  If a Seq were an array, this would be an object. Similar to sequence in that they are lazy, however it works with keys instead of indices.
+
+###[SetSeq](http://facebook.github.io/immutable-js/docs/#/SetSeq)
+  
+  I must admit I am a big confused by this one. Feel free to fork and submit a pull request with an explanation.
+  The reason I am confused is because:
+  >Because Seq are often lazy, SetSeq does not provide the same guarantee of value uniqueness as the concrete Set.
 
 
 
