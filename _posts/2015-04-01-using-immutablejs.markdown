@@ -8,7 +8,12 @@ ImmutableJS is an implementation of persistent data structures and is extremely 
 However, understanding (much less using) the ImmutableJS data structures are extremely hard to use because the docs are unhelpful and confusing.
 This post is to address which data structures you should use and you should use and when to use them.
 
-## Some quick perfomance considerations.
+# Navigation
+* [Performance](#performance)
+* [Key terms](#keyterms)
+* [Data Structures](#datastructures)
+
+## <a name="performance" >Some quick perfomance considerations.</a>
 
 ImmutableJS does a shallow copy of an object every time you mutate it, which can have massive perforamance implications.
 If you don't consider your data structers while working with them you can freeze up your page really easily. 
@@ -69,18 +74,34 @@ Why didn't that work? Well transforming a giant array into a different datastruc
 Finally I stubmled on, what I consider, to be the best answer. 
 
 There is a function called `withMutations` which gives you a mutatable version as a callback, which you can mutate mutliple times
-without worrying about shallow copies happening every time.
+without worrying about shallow copies happening every time (49 per second).
 
 {% highlight javascript %}
-for (var i = 0; i < testSize; i++) {
-  jsArr.push(i);
-}
-imList = Immutable.List(jsArr);
+imList = imList.withMutations(function(mutatable) {
+  for (var i = 0; i < testSize; i++) {
+    mutatable.push(testSize);
+  }
+  return mutatable;
+});
 {% endhighlight %}
 
 --------------------------------------------------------------------------------------------------------------
 
-## Some Key terms
+There is one more answer, however there are some drawbacks (15,879,672 per second). 
+
+{% highlight javascript %}
+var imRange = Immutable.Range(0, testSize);
+{% endhighlight %}
+
+
+_Uhm what? 15,879,672 per second? 75979 times faster than a javascript array? What is this black magic?_
+
+Range is a version of Seq (sequence) which is lazy, and won't do any work until you need to use it. So if you
+can think of a case where you **might** need an array of 999999 elements, then this is perfect for you. I,
+however, can't think of such a case. While this seems like a cool thing to have access too, I haven't found any
+practical uses.
+--------------------------------------------------------------------------------------------------------------
+## <a name="keyterms">Some Key terms</a>
 
 1. keypath: Throughout these immutablejs docs, you will see this term. It is just a path to access nested properties. 
   EX: `'steve.pants.leftPocket.wallet.creditCardSlots.1'`
@@ -93,15 +114,28 @@ imList = Immutable.List(jsArr);
     the first item given to the sorting algorithm will come out first in the sorted structure.
 
 
-## Data Structures
+## <a name="datastructures">Data Structures</a>
+* [Map](#Map)
+* [List](#List)
+* [OrderedMap](#OrderedMap)
+* [Set](#Set)
+* [OrderedSet](#OrderedSet)
+* [Stack](#Stack)
+* [Seq](#Seq)
+* [KeyedSeq](#KeyedSeq)
+* [SetSeq](#SetSeq)
 
-###[Map](https://facebook.github.io/immutable-js/docs/#/Map)
+--------------------------------------------------------------------------------------------------------------
+
+### [Map](https://facebook.github.io/immutable-js/docs/#/Map) <a name="Map"></a>
   Equivalent to a regular javascript object and can be used in similar places, the disadvantage is that you need to use getters and setters.
   You can iterate over these, but the order is not guaranteed.
 
   An alternative to this is a Record, which you don't need to use getters for.
 
-###[List](https://facebook.github.io/immutable-js/docs/#/List)
+--------------------------------------------------------------------------------------------------------------
+
+### [List](https://facebook.github.io/immutable-js/docs/#/List) <a name="List"></a>
 
   Most like a javascript array in that its contents are kept in order. However, you might find this less useful than a javascript array because it's contents are not mutatable.
   
@@ -115,7 +149,9 @@ imList = Immutable.List(jsArr);
   >You need to edit the task **and** replace it in your list of tasks. Now you have to do a search through the list, find the task, and replace it with a new edited one.
   >Suddenly a simple mutation becomes an O(n) operation and five or six more lines of code. Perhaps you should consider an OrderedMap instead._
 
-###[Ordered Map](https://facebook.github.io/immutable-js/docs/#/OrderedMap) 
+--------------------------------------------------------------------------------------------------------------
+
+### [Ordered Map](https://facebook.github.io/immutable-js/docs/#/OrderedMap)  <a name="OrderedMap"></a>
   
   An ordered map is like a combination of a javascript object and an array. You set things with an index, and order in which is you set things is guaranteed.
 
@@ -128,7 +164,9 @@ imList = Immutable.List(jsArr);
   >The advantage of doing this is that you can find the object again later so that you can edit/replace it in the Ordered Map later.
   >One caveat is that you also need to keep the index on the object in the Ordered Map so you can tell where the object came from later.
 
-###[Set](https://facebook.github.io/immutable-js/docs/#/Set) - _[Example](http://codepen.io/ericwooley/pen/bNJRZJ)_
+--------------------------------------------------------------------------------------------------------------
+
+### [Set](https://facebook.github.io/immutable-js/docs/#/Set) - _[Example](http://codepen.io/ericwooley/pen/bNJRZJ)_ <a name="Set"></a>
 
   A set is like a list but prevents the same entry from occurring twice. Which sounds useful, until you remember that every mutation returns a new object. 
   This is perfect for keeping a list of unique primitive values. 
@@ -139,12 +177,16 @@ imList = Immutable.List(jsArr);
   >The thing to remember is that ImmutableJS objects always return a new copied object so the set would just add any mutation of a task you created,
   >and would be of no help.
 
-###[Ordered Set](http://facebook.github.io/immutable-js/docs/#/OrderedSet)
+--------------------------------------------------------------------------------------------------------------
+
+### [Ordered Set](http://facebook.github.io/immutable-js/docs/#/OrderedSet) <a name="OrderedSet"></a>
   Just like a set, but will preserve the order in which things are added, so that you can iterate over in the same way later. 
   Most the time set keeps the order also, but it's not guaranteed. 
   An ordered set guarantees the order at a memory cost.
 
-###[Stack](http://facebook.github.io/immutable-js/docs/#/Stack)
+--------------------------------------------------------------------------------------------------------------
+
+### [Stack](http://facebook.github.io/immutable-js/docs/#/Stack) <a name="Stack"></a>
   
   A [stack](http://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29) is a data structure where items are always inserted at the top (or beginning) and removed from the top.
   This data structure is extremely efficient at inserting and removing elements but horribly inefficient at accessing any element in the data structure with the exception of the first one. 
@@ -160,16 +202,22 @@ imList = Immutable.List(jsArr);
   >
   > Every time the user clicks that button, they will be transported back in time.
 
-###[Seq](http://facebook.github.io/immutable-js/docs/#/Seq)
+--------------------------------------------------------------------------------------------------------------
+
+### [Seq](http://facebook.github.io/immutable-js/docs/#/Seq) <a name="Seq"></a>
   
   An Seq is like a list but its lazy, so operations you apply to them won't be performed until the sequence is accessed. Which has intense implications. 
   I won't say too much on sequences because this is one of the few areas that ImmutableJS is well documented.
 
-###[KeyedSeq](http://facebook.github.io/immutable-js/docs/#/KeyedSeq)
+--------------------------------------------------------------------------------------------------------------
+
+### [KeyedSeq](http://facebook.github.io/immutable-js/docs/#/KeyedSeq) <a name="KeyedSeq"></a>
 
   If a Seq were an array, this would be an object. Similar to sequence in that they are lazy, however it works with keys instead of indices.
 
-###[SetSeq](http://facebook.github.io/immutable-js/docs/#/SetSeq)
+--------------------------------------------------------------------------------------------------------------
+
+### [SetSeq](http://facebook.github.io/immutable-js/docs/#/SetSeq) <a name="SetSeq"></a>
   
   I must admit I am a big confused by this one. Feel free to fork and submit a pull request with an explanation.
   The reason I am confused is because:
