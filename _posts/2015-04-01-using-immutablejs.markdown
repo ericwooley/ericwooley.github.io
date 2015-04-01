@@ -38,7 +38,7 @@ In this example we are creating an array filled with 0 - 99999.
 Since we are all famialiar with javascript. Here is how most of us would do it.
 
 --------------------------------------------------------------------------------------------------------------
-This is the regular way, and is, comparatively, blazingly fast (209 per second).
+This is the regular way, and is, comparatively, blazingly fast (230 per second).
 
 {% highlight javascript %}
 for (var i = 0; i < testSize; i++) {
@@ -63,19 +63,23 @@ But why is it so slow? Because every time you push you are also copying the enti
 _So what is the answer? Is there a better way._
 My first thought was to create the array at blazing speed, then create the Immutable List and be on my merry way!
 
-Reality didn't match my expectation however (27 per second)
+<s>Reality didn't match my expectation however (27 per second)</s>
 
 {% highlight javascript %}
 for (var i = 0; i < testSize; i++) {
   jsArr.push(i);
 }
-imList = Immutable.List(jsArr);
+//imList = Immutable.List(jsArr); // This is wrong as it turns out.
+imList = Immutable.List.of(jsArr);
 {% endhighlight %}
 
-Why didn't that work? Well transforming a giant array into a different datastructure isn't as performant as I would have hoped.
+<s>Why didn't that work? Well transforming a giant array into a different datastructure isn't as performant as I would have hoped.</s>
+
+This actually worked very close to native performance (218 per second) . However, the docs give no hints as to why.
+Which is precicely why this article was started.
 
 --------------------------------------------------------------------------------------------------------------
-Finally I stubmled on, what I consider, to be the best answer. 
+<s>Finally I stubmled on, what I consider, to be the best answer. </s>
 
 There is a function called `withMutations` which gives you a mutatable version as a callback, which you can mutate mutliple times
 without worrying about shallow copies happening every time (49 per second).
