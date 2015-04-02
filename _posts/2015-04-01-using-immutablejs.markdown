@@ -9,8 +9,11 @@ If you don't know what ImmutableJS is, it's written by facebook and can be used 
 [Check out this video](https://www.youtube.com/watch?v=I7IdS-PbEgI) for a better explanation than I could give you 
 
 ImmutableJS is an implementation of persistent data structures and is extremely powerful, so long as you understand and use the data structures properly.
-However, understanding (much less using) the ImmutableJS data structures are extremely hard to use because the docs are unhelpful and confusing.
+However, understanding (much less using) the ImmutableJS data structures are extremely hard because the docs are unhelpful and confusing.
 This post is to address which data structures you should use and you should use and when to use them.
+
+<span style="color: #C00">*I am new to ImmutableJS, if you disagree or want
+to make a correction. Feel free to make a pull request or [@ericwooley](https://twitter.com/ericwooley)*</span>
 
 # Navigation
 * [Watch Out](#watchout)
@@ -247,14 +250,20 @@ however, can't think of such a case. While this seems like a cool thing to have 
   The interesting thing about records is that deleting one of the properties that was defined in the template will reset it to what the template had instead of deleting the property.
 
 
-  {% highlight javascript %}
-    var DemoRecord = new Immutable.Record({steve:'is cool', and: ['likes', 'to', 'program']});
-    var r = new DemoRecord({steve: 'is lame', and: ['likes', 'to', 'make', 'fun', 'of', 'people']});
-    r.get('steve') // 'is lame'
-    r.steve        // 'is lame'
-    r.delete('steve');
-    r.get('steve') // 'is cool'
-  {% endhighlight %}
+{% highlight javascript %}
+var DemoRecord = new Immutable.Record({
+  steve:'is cool',
+  and: ['likes', 'to', 'program']
+});
+var r = new DemoRecord({
+  steve: 'is lame',
+  and: ['likes', 'to', 'make', 'fun', 'of', 'people']
+});
+r.get('steve') // 'is lame'
+r.steve        // 'is lame'
+r.delete('steve');
+r.get('steve') // 'is cool'
+ {% endhighlight %}
 
 <!-- {% highlight ruby %}
 def print_hi(name)
