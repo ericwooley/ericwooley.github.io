@@ -153,6 +153,21 @@ however, can't think of such a case. While this seems like a cool thing to have 
 
   An alternative to this is a Record, which you don't need to use getters for.
 
+Example Usage
+{% highlight javascript %}
+var map1 = Immutable.Map({a:1, b:2, c:3});
+var map2 = map1.set('b', 50);
+map1.get('b'); // 2
+map2.get('b'); // 50
+
+// Properties can not be get or set directly
+map1.a // undefined
+map1.a = 'stuff' 
+map1.a // 'stuff'
+map1.get('a') // 1
+
+{% endhighlight %}
+
 --------------------------------------------------------------------------------------------------------------
 
 ### List <a name="List"></a>
@@ -203,14 +218,45 @@ _[Docs](https://facebook.github.io/immutable-js/docs/#/Set) - [Example](http://c
   >The thing to remember is that ImmutableJS objects always return a new copied object so the set would just add any mutation of a task you created,
   >and would be of no help.
 
+Example Usage
+{% highlight javascript %}
+var set = new Immutable.Set([1, 2, 3, 4, 5]);
+set = set.add(5);             // [1, 2, 3, 4, 5]
+set = set.add(6);             // [1, 2, 3, 4, 5, 6]
+set = set.delete(5);          // [1, 2, 3, 4, 6]
+
+var set2 = set.add(5);
+// set: [1, 2, 3, 4, 6]
+// set2: [1, 2, 3, 4, 6, 5]
+
+set2 = set2.add(6);           // [1, 2, 3, 4, 6, 5]
+set2 = set2.add(7);           // [1, 2, 3, 4, 6, 5, 7]
+set2 = set2.add(8);           // [1, 2, 3, 4, 6, 5, 7, 8]
+
+set = set.add(0);             // [1, 2, 3, 4, 6, 0]
+
+var set3 = set.intersect(set2);
+// set1: [1, 2, 3, 4, 6, 0]
+// set2: [1, 2, 3, 4, 6, 5, 7, 8]
+// set3: [1, 2, 3, 4, 6]
+
+set3 = set.union(set2);       // [0,1,2,3,4,5,6,7,8]
+set3 = set.union(imSet2).intersect(imSet3);
+// [0,1,2,3,4,5,6,7,8]
+{% endhighlight %}
+
+
 --------------------------------------------------------------------------------------------------------------
 
 ### Ordered Set <a name="OrderedSet"></a>
 
 _[Docs](http://facebook.github.io/immutable-js/docs/#/OrderedSet)_
+  
   Just like a set, but will preserve the order in which things are added, so that you can iterate over in the same way later. 
   Most the time set keeps the order also, but it's not guaranteed. 
   An ordered set guarantees the order at a memory cost.
+
+  _See above fore example_
 
 --------------------------------------------------------------------------------------------------------------
 
