@@ -23,8 +23,7 @@ to make a correction. Feel free to make a pull request or [@ericwooley](https://
 
 ## <a name="watchout">Watch Out (Some things that got me)</a>
 
-1. toArray(), toJS(), and toObject() do not return a new thing, they convert the immutable object in place. Which is decieving
-  because these are the only things like that (that I have found).
+1. Nothing here yet, I had some stuff, but I was wrong. Check back later though!
 
 
 ## <a name="performance" >Some quick perfomance considerations.</a>
@@ -36,7 +35,7 @@ The following is an extremely contrived example, during which Immutable performs
 
 ImmutableJS does a shallow copy of an object every time you mutate it, which can have massive perforamance implications.
 If you don't consider your data structers while working with them you can freeze up your page really easily. 
-[if you run performance test](http://jsperf.com/with-out-mutatable/2) it will be clear that one way of doing things is 
+[If you run performance test](http://jsperf.com/with-out-mutatable/2) it will be clear that one way of doing things is 
 extremely slow, and one is fast, but neither are nearly as fast as plain javascript.
 
 ###Lets break down the code
@@ -143,6 +142,7 @@ however, can't think of such a case. While this seems like a cool thing to have 
 * [Seq](#Seq)
 * [KeyedSeq](#KeyedSeq)
 * [SetSeq](#SetSeq)
+* [Record](#Record)
 
 --------------------------------------------------------------------------------------------------------------
 
@@ -243,7 +243,7 @@ however, can't think of such a case. While this seems like a cool thing to have 
   >Because Seq are often lazy, SetSeq does not provide the same guarantee of value uniqueness as the concrete Set.
   I don't see the purpose of having a set that doesn't guaruntee uniqueness and don't recommend using this unless you have a good reason.
 
-### [Record](http://facebook.github.io/immutable-js/docs/#/Record)
+### [Record](http://facebook.github.io/immutable-js/docs/#/Record) <a name="Record"></a>
 
   Records are like typed javascript objects which enforce certain rules. Unlike a Map, a Record is defined as a class
   using an object as a template. The object can then be used much like a Map Object, except that you can access the properties on them without a getter.
