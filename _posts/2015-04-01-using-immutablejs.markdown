@@ -21,17 +21,17 @@ to make a correction. Feel free to make a pull request or [@ericwooley](https://
 * [Key terms](#keyterms)
 * [Data Structures](#datastructures)
 
-## <a name="watchout">Watch Out (Some things that got me)</a>
+## Watch Out (Some things that got me)<a name="watchout"></a>
 
 1. Nothing here yet, I had some stuff, but I was wrong. Check back later though!
 
 
-## <a name="performance" >Some quick perfomance considerations.</a>
+## Some quick perfomance considerations.<a name="performance" ></a>
 
 The following is an extremely contrived example, during which Immutable performs very poorly. 
 
 *TL;DR* To reduce the performance hit you take by modifying large amounts of data on the same Immutable object, you can batch your changes using 
-[`withMutations`](http://facebook.github.io/immutable-js/docs/#/Map/withMutations)
+[withMutations](http://facebook.github.io/immutable-js/docs/#/Map/withMutations)
 
 ImmutableJS does a shallow copy of an object every time you mutate it, which can have massive perforamance implications.
 If you don't consider your data structers while working with them you can freeze up your page really easily. 
@@ -132,7 +132,7 @@ however, can't think of such a case. While this seems like a cool thing to have 
     the first item given to the sorting algorithm will come out first in the sorted structure.
 
 
-## <a name="datastructures">Data Structures</a>
+## Data Structures<a name="datastructures"></a>
 * [Map](#Map)
 * [List](#List)
 * [OrderedMap](#OrderedMap)
@@ -146,7 +146,8 @@ however, can't think of such a case. While this seems like a cool thing to have 
 
 --------------------------------------------------------------------------------------------------------------
 
-### [Map](https://facebook.github.io/immutable-js/docs/#/Map) <a name="Map"></a>
+### Map <a name="Map"></a>
+  _[Docs](https://facebook.github.io/immutable-js/docs/#/Map)_
   Equivalent to a regular javascript object and can be used in similar places, the disadvantage is that you need to use getters and setters.
   You can iterate over these, but the order is not guaranteed.
 
@@ -154,7 +155,9 @@ however, can't think of such a case. While this seems like a cool thing to have 
 
 --------------------------------------------------------------------------------------------------------------
 
-### [List](https://facebook.github.io/immutable-js/docs/#/List) <a name="List"></a>
+### List <a name="List"></a>
+
+_[Docs](https://facebook.github.io/immutable-js/docs/#/List)_
 
   Most like a javascript array in that its contents are kept in order. However, you might find this less useful than a javascript array because it's contents are not mutatable.
   
@@ -170,7 +173,9 @@ however, can't think of such a case. While this seems like a cool thing to have 
 
 --------------------------------------------------------------------------------------------------------------
 
-### [Ordered Map](https://facebook.github.io/immutable-js/docs/#/OrderedMap)  <a name="OrderedMap"></a>
+### Ordered Map <a name="OrderedMap"></a>
+
+_[Docs](https://facebook.github.io/immutable-js/docs/#/OrderedMap)_
   
   An ordered map is like a combination of a javascript object and an array. You set things with an index, and order in which is you set things is guaranteed.
 
@@ -185,7 +190,9 @@ however, can't think of such a case. While this seems like a cool thing to have 
 
 --------------------------------------------------------------------------------------------------------------
 
-### [Set](https://facebook.github.io/immutable-js/docs/#/Set) - _[Example](http://codepen.io/ericwooley/pen/bNJRZJ)_ <a name="Set"></a>
+### Set <a name="Set"></a>
+
+_[Docs](https://facebook.github.io/immutable-js/docs/#/Set) - [Example](http://codepen.io/ericwooley/pen/bNJRZJ)_
 
   A set is like a list but prevents the same entry from occurring twice. Which sounds useful, until you remember that every mutation returns a new object. 
   This is perfect for keeping a list of unique primitive values. 
@@ -198,14 +205,18 @@ however, can't think of such a case. While this seems like a cool thing to have 
 
 --------------------------------------------------------------------------------------------------------------
 
-### [Ordered Set](http://facebook.github.io/immutable-js/docs/#/OrderedSet) <a name="OrderedSet"></a>
+### Ordered Set <a name="OrderedSet"></a>
+
+_[Docs](http://facebook.github.io/immutable-js/docs/#/OrderedSet)_
   Just like a set, but will preserve the order in which things are added, so that you can iterate over in the same way later. 
   Most the time set keeps the order also, but it's not guaranteed. 
   An ordered set guarantees the order at a memory cost.
 
 --------------------------------------------------------------------------------------------------------------
 
-### [Stack](http://facebook.github.io/immutable-js/docs/#/Stack) <a name="Stack"></a>
+### Stack <a name="Stack"></a>
+
+_[Docs](http://facebook.github.io/immutable-js/docs/#/Stack)_
   
   A [stack](http://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29) is a data structure where items are always inserted at the top (or beginning) and removed from the top.
   This data structure is extremely efficient at inserting and removing elements but horribly inefficient at accessing any element in the data structure with the exception of the first one. 
@@ -223,27 +234,35 @@ however, can't think of such a case. While this seems like a cool thing to have 
 
 --------------------------------------------------------------------------------------------------------------
 
-### [Seq](http://facebook.github.io/immutable-js/docs/#/Seq) <a name="Seq"></a>
+### Seq <a name="Seq"></a>
+
+_[Docs](http://facebook.github.io/immutable-js/docs/#/Seq)_
   
   An Seq is like a list but its lazy, so operations you apply to them won't be performed until the sequence is accessed. Which has intense implications. 
   I won't say too much on sequences because this is one of the few areas that ImmutableJS is well documented.
 
 --------------------------------------------------------------------------------------------------------------
 
-### [KeyedSeq](http://facebook.github.io/immutable-js/docs/#/KeyedSeq) <a name="KeyedSeq"></a>
+### KeyedSeq <a name="KeyedSeq"></a>
+
+_[Docs](http://facebook.github.io/immutable-js/docs/#/KeyedSeq)_
 
   If a Seq were an array, this would be an object. Similar to sequence in that they are lazy, however it works with keys instead of indices.
 
 --------------------------------------------------------------------------------------------------------------
 
-### [SetSeq](http://facebook.github.io/immutable-js/docs/#/SetSeq) <a name="SetSeq"></a>
+### SetSeq <a name="SetSeq"></a>
+
+_[Docs](http://facebook.github.io/immutable-js/docs/#/SetSeq)_
   
   I must admit I am a big confused by this one. Feel free to fork and submit a pull request with an explanation.
   The reason I am confused is because:
   >Because Seq are often lazy, SetSeq does not provide the same guarantee of value uniqueness as the concrete Set.
   I don't see the purpose of having a set that doesn't guaruntee uniqueness and don't recommend using this unless you have a good reason.
 
-### [Record](http://facebook.github.io/immutable-js/docs/#/Record) <a name="Record"></a>
+### Record <a name="Record"></a>
+
+_[Docs](http://facebook.github.io/immutable-js/docs/#/Record)_
 
   Records are like typed javascript objects which enforce certain rules. Unlike a Map, a Record is defined as a class
   using an object as a template. The object can then be used much like a Map Object, except that you can access the properties on them without a getter.
