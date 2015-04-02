@@ -264,11 +264,3 @@ r.steve        // 'is lame'
 r.delete('steve');
 r.get('steve') // 'is cool'
  {% endhighlight %}
-
-<!-- {% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %} -->
