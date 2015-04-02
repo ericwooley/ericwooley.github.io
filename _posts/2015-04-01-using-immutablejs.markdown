@@ -251,7 +251,7 @@ however, can't think of such a case. While this seems like a cool thing to have 
 
 
 {% highlight javascript %}
-var DemoRecord = new Immutable.Record({
+var DemoRecord = Immutable.Record({
   steve:'is cool',
   and: ['likes', 'to', 'program']
 });
