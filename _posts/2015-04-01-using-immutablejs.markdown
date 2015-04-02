@@ -26,6 +26,11 @@ This post is to address which data structures you should use and you should use 
 
 ## <a name="performance" >Some quick perfomance considerations.</a>
 
+The following is an extremely contrived example, during which Immutable performs very poorly. 
+
+*TL;DR* To reduce the performance hit you take by modifying large amounts of data on the same Immutable object, you can batch your changes using 
+[`withMutations`](http://facebook.github.io/immutable-js/docs/#/Map/withMutations)
+
 ImmutableJS does a shallow copy of an object every time you mutate it, which can have massive perforamance implications.
 If you don't consider your data structers while working with them you can freeze up your page really easily. 
 [if you run performance test](http://jsperf.com/with-out-mutatable/2) it will be clear that one way of doing things is 
@@ -235,8 +240,21 @@ however, can't think of such a case. While this seems like a cool thing to have 
   >Because Seq are often lazy, SetSeq does not provide the same guarantee of value uniqueness as the concrete Set.
   I don't see the purpose of having a set that doesn't guaruntee uniqueness and don't recommend using this unless you have a good reason.
 
+### [Record](http://facebook.github.io/immutable-js/docs/#/Record)
+
+  Records are like typed javascript objects which enforce certain rules. Unlike a Map, a Record is defined as a class
+  using an object as a template. The object can then be used much like a Map Object, except that you can access the properties on them without a getter.
+  The interesting thing about records is that deleting one of the properties that was defined in the template will reset it to what the template had instead of deleting the property.
 
 
+  {% highlight javascript %}
+    var DemoRecord = new Immutable.Record({steve:'is cool', and: ['likes', 'to', 'program']});
+    var r = new DemoRecord({steve: 'is lame', and: ['likes', 'to', 'make', 'fun', 'of', 'people']});
+    r.get('steve') // 'is lame'
+    r.steve        // 'is lame'
+    r.delete('steve');
+    r.get('steve') // 'is cool'
+  {% endhighlight %}
 
 <!-- {% highlight ruby %}
 def print_hi(name)
