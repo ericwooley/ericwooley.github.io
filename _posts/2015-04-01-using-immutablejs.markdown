@@ -9,7 +9,7 @@ If you don't know what ImmutableJS is, it's written by facebook and can be used 
 [Check out this video](https://www.youtube.com/watch?v=I7IdS-PbEgI) for a better explanation than I could give you 
 
 ImmutableJS is an implementation of persistent data structures and is extremely powerful, so long as you understand and use the data structures properly.
-However, understanding (much less using) the ImmutableJS data structures are extremely hard because the API docs are unhelpful and confusing.
+However, understanding (much less using) the ImmutableJS data structures are extremely hard because the API docs are of incomplete, unhelpful, or confusing.
 This post is to address which data structures you should use and you should use and when to use them.
 
 <span style="color: #C00">*I am new to ImmutableJS, if you disagree or want
