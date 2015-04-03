@@ -56,7 +56,7 @@ to make a correction. Feel free to make a pull request or [@ericwooley](https://
   Equivalent to a regular javascript object and can be used in similar places, the disadvantage is that you need to use getters and setters.
   You can iterate over these, but the order is not guaranteed.
 
-  An alternative to this is a Record, which you don't need to use getters for.
+  An alternative to this is a [Record](#Record), which you don't need to use getters for.
 
 Example Usage
 {% highlight javascript %}
@@ -323,7 +323,7 @@ The following is an extremely contrived example, during which Immutable performs
 [withMutations](http://facebook.github.io/immutable-js/docs/#/Map/withMutations)
 
 ImmutableJS does a shallow copy of an object every time you mutate it, which can have massive perforamance implications.
-If you don't consider your data structers while working with them you can freeze up your page really easily. 
+If you don't consider your data structers while working with them you can uterly destroy your performance in some cases. 
 [If you run performance test](http://jsperf.com/with-out-mutatable/2) it will be clear that one way of doing things is 
 extremely slow, and one is fast, but neither are nearly as fast as plain javascript.
 
