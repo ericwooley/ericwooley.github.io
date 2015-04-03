@@ -50,7 +50,9 @@ to make a correction. Feel free to make a pull request or [@ericwooley](https://
 --------------------------------------------------------------------------------------------------------------
 
 ### <a name="Map"></a>Map 
+  
   _[Docs](https://facebook.github.io/immutable-js/docs/#/Map)_
+
   Equivalent to a regular javascript object and can be used in similar places, the disadvantage is that you need to use getters and setters.
   You can iterate over these, but the order is not guaranteed.
 
