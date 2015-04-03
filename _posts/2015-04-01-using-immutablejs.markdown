@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Getting up to speed with ImmutableJS"
+title:  "Up to speed with ImmutableJS"
 date:   2015-04-01 09:50:45
 categories: immutablejs react
 ---
