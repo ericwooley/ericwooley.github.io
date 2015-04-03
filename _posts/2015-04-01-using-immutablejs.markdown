@@ -17,106 +17,16 @@ to make a correction. Feel free to make a pull request or [@ericwooley](https://
 
 # Navigation
 * [Watch Out](#watchout)
-* [Performance](#performance)
 * [Key terms](#keyterms)
 * [Data Structures](#datastructures)
+* [Performance](#performance) - You will take a performance hit, but most the time it won't matter, check this section out for some info on when it might matter
+    and how to minimize the damage.
 
 ## Watch Out (Some things that got me)<a name="watchout"></a>
 
 1. Nothing here yet, I had some stuff, but I was wrong. Check back later though!
 
 
-## Some quick perfomance considerations.<a name="performance" ></a>
-
-The following is an extremely contrived example, during which Immutable performs very poorly. 
-
-*TL;DR* To reduce the performance hit you take by modifying large amounts of data on the same Immutable object, you can batch your changes using 
-[withMutations](http://facebook.github.io/immutable-js/docs/#/Map/withMutations)
-
-ImmutableJS does a shallow copy of an object every time you mutate it, which can have massive perforamance implications.
-If you don't consider your data structers while working with them you can freeze up your page really easily. 
-[If you run performance test](http://jsperf.com/with-out-mutatable/2) it will be clear that one way of doing things is 
-extremely slow, and one is fast, but neither are nearly as fast as plain javascript.
-
-###Lets break down the code
-
-Here is our setup
-{% highlight javascript %}
-// Variable Declarations
-var arr = Immutable.List(),
-  jsArr = [],
-  testSize = 100000;
-{% endhighlight %}
-
-In this example we are creating an array filled with 0 - 99999.
-Since we are all famialiar with javascript. Here is how most of us would do it.
-
---------------------------------------------------------------------------------------------------------------
-This is the regular way, and is, comparatively, blazingly fast (230 per second).
-
-{% highlight javascript %}
-for (var i = 0; i < testSize; i++) {
-  jsArr.push(i);
-}
-{% endhighlight %}
-
---------------------------------------------------------------------------------------------------------------
-
-Here is the wrong way to do it, and it's painfully slow (11 per second).
-
-{% highlight javascript %}
-for (var i = 0; i < testSize; i++) {
-  imList = imList.push(i);
-}
-{% endhighlight %}
-
-But why is it so slow? Because every time you push you are also copying the entire list!
-
---------------------------------------------------------------------------------------------------------------
-
-_So what is the answer? Is there a better way._
-My first thought was to create the array at blazing speed, then create the Immutable List and be on my merry way!
-
-Reality didn't match my expectation however (27 per second)
-
-{% highlight javascript %}
-for (var i = 0; i < testSize; i++) {
-  jsArr.push(i);
-}
-imList = Immutable.List(jsArr); 
-{% endhighlight %}
-
-Why didn't that work? Well transforming a giant array into a different datastructure isn't as performant as I would have hoped.
-
---------------------------------------------------------------------------------------------------------------
-Finally I stubmled on, what I consider, to be the best answer.
-
-There is a function called `withMutations` which gives you a mutatable version as a callback, which you can mutate mutliple times
-without worrying about shallow copies happening every time (49 per second).
-
-{% highlight javascript %}
-imList = imList.withMutations(function(mutatable) {
-  for (var i = 0; i < testSize; i++) {
-    mutatable.push(testSize);
-  }
-  return mutatable;
-});
-{% endhighlight %}
-
---------------------------------------------------------------------------------------------------------------
-
-There is one more answer, however there are some drawbacks (15,879,672 per second). 
-
-{% highlight javascript %}
-var imRange = Immutable.Range(0, testSize);
-{% endhighlight %}
-
-
-_Uhm what? 15,879,672 per second? 75979 times faster than a javascript array? What is this black magic?_
-
-Range is a version of Seq (sequence) which is lazy, and won't do any work until you need to use it. So if you
-can think of a case where you **might** need an array of 999999 elements, then this is perfect for you. I,
-however, can't think of such a case. While this seems like a cool thing to have access too, I haven't found any practical uses.
 
 --------------------------------------------------------------------------------------------------------------
 ## <a name="keyterms">Some Key terms</a>
@@ -329,3 +239,95 @@ r.steve        // 'is lame'
 r.delete('steve');
 r.get('steve') // 'is cool'
  {% endhighlight %}
+
+## Some quick perfomance considerations.<a name="performance" ></a>
+
+The following is an extremely contrived example, during which Immutable performs very poorly. 
+
+*TL;DR* To reduce the performance hit you take by modifying large amounts of data on the same Immutable object, you can batch your changes using 
+[withMutations](http://facebook.github.io/immutable-js/docs/#/Map/withMutations)
+
+ImmutableJS does a shallow copy of an object every time you mutate it, which can have massive perforamance implications.
+If you don't consider your data structers while working with them you can freeze up your page really easily. 
+[If you run performance test](http://jsperf.com/with-out-mutatable/2) it will be clear that one way of doing things is 
+extremely slow, and one is fast, but neither are nearly as fast as plain javascript.
+
+###Lets break down the code
+
+Here is our setup
+{% highlight javascript %}
+// Variable Declarations
+var arr = Immutable.List(),
+  jsArr = [],
+  testSize = 100000;
+{% endhighlight %}
+
+In this example we are creating an array filled with 0 - 99999.
+Since we are all famialiar with javascript. Here is how most of us would do it.
+
+--------------------------------------------------------------------------------------------------------------
+This is the regular way, and is, comparatively, blazingly fast (230 per second).
+
+{% highlight javascript %}
+for (var i = 0; i < testSize; i++) {
+  jsArr.push(i);
+}
+{% endhighlight %}
+
+--------------------------------------------------------------------------------------------------------------
+
+Here is the wrong way to do it, and it's painfully slow (11 per second).
+
+{% highlight javascript %}
+for (var i = 0; i < testSize; i++) {
+  imList = imList.push(i);
+}
+{% endhighlight %}
+
+But why is it so slow? Because every time you push you are also copying the entire list!
+
+--------------------------------------------------------------------------------------------------------------
+
+_So what is the answer? Is there a better way._
+My first thought was to create the array at blazing speed, then create the Immutable List and be on my merry way!
+
+Reality didn't match my expectation however (27 per second)
+
+{% highlight javascript %}
+for (var i = 0; i < testSize; i++) {
+  jsArr.push(i);
+}
+imList = Immutable.List(jsArr); 
+{% endhighlight %}
+
+Why didn't that work? Well transforming a giant array into a different datastructure isn't as performant as I would have hoped.
+
+--------------------------------------------------------------------------------------------------------------
+Finally I stubmled on, what I consider, to be the best answer.
+
+There is a function called `withMutations` which gives you a mutatable version as a callback, which you can mutate mutliple times
+without worrying about shallow copies happening every time (49 per second).
+
+{% highlight javascript %}
+imList = imList.withMutations(function(mutatable) {
+  for (var i = 0; i < testSize; i++) {
+    mutatable.push(testSize);
+  }
+  return mutatable;
+});
+{% endhighlight %}
+
+--------------------------------------------------------------------------------------------------------------
+
+There is one more answer, however there are some drawbacks (15,879,672 per second). 
+
+{% highlight javascript %}
+var imRange = Immutable.Range(0, testSize);
+{% endhighlight %}
+
+
+_Uhm what? 15,879,672 per second? 75979 times faster than a javascript array? What is this black magic?_
+
+Range is a version of Seq (sequence) which is lazy, and won't do any work until you need to use it. So if you
+can think of a case where you **might** need an array of 999999 elements, then this is perfect for you. I,
+however, can't think of such a case. While this seems like a cool thing to have access too, I haven't found any practical uses.
