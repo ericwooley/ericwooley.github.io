@@ -89,6 +89,12 @@ _[Docs](https://facebook.github.io/immutable-js/docs/#/List)_
   >You need to edit the task **and** replace it in your list of tasks. Now you have to do a search through the list, find the task, and replace it with a new edited one.
   >Suddenly a simple mutation becomes an O(n) operation and five or six more lines of code. Perhaps you should consider an OrderedMap instead._
 
+
+Example Usage
+{% highlight javascript %}
+// TODO: Write this
+{% endhighlight %}
+
 --------------------------------------------------------------------------------------------------------------
 
 ### <a name="OrderedMap"></a>Ordered Map 
@@ -180,6 +186,78 @@ _[Docs](http://facebook.github.io/immutable-js/docs/#/Stack)_
   > Create a button that sets State = stack.pop();
   >
   > Every time the user clicks that button, they will be transported back in time.
+
+Example Usage - [CodePen](http://codepen.io/ericwooley/pen/emooGv?editors=101)
+{% highlight html %}
+<div class='region'>
+  <input type='text' class='edit-title' />
+  <br /> <br />
+  <textarea class='edit-main' rows=5></textarea>
+  <br /> <br />
+  <button class='save'><i class="fa fa-floppy-o"></i></button>
+</div>
+<div class='region'>
+  <button class='history-button back'><i class="fa fa-angle-left"></i></button>
+  <button class='history-button forward'><i class="fa fa-angle-right"></i></button>
+  <h1 class='title'></h1>
+  <p class='main'></p>  
+</div>
+{% endhighlight %}
+
+{% highlight javascript %}
+var forwardHistory = Immutable.Stack();
+
+var State = Immutable.Record({
+  title: 'demo',
+  main: 'this is a test'
+});
+var state = new State();
+var backwardHistory = Immutable.Stack.of(state);
+
+function saveStateToHistory(newState) {
+  backwardHistory = backwardHistory.push(newState);
+}
+
+function restorePreviousState() {
+  var newState = backwardHistory.peek();
+  if(!newState) return;
+  forwardHistory = forwardHistory.push(state);
+  state = newState;
+  backwardHistory = backwardHistory.pop();
+  renderState();
+}
+function restorefutureState() {
+  var newState = forwardHistory.peek();;
+  if(!newState) return;
+  backwardHistory = backwardHistory.push(state);
+  state = newState;
+  forwardHistory = forwardHistory.pop();
+  renderState();
+}
+function triggerStateChange(){
+  saveStateToHistory(state);
+  state = new State({
+    title: $('.edit-title').val(),
+    main: $('.edit-main').val()
+  });
+  renderState();
+};
+
+function renderState(){
+  console.log(state.toJS());
+  $('.title').html(state.title);
+  $('.edit-title').val(state.title);
+  
+  $('.main').html(state.main);
+  $('.edit-main').html(state.main);
+}
+
+renderState();
+
+$('.save').on('click', triggerStateChange);
+$('.back').on('click', restorePreviousState);
+$('.forward').on('click', restorefutureState);
+{% endhighlight %}
 
 --------------------------------------------------------------------------------------------------------------
 
