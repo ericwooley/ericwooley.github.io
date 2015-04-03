@@ -22,14 +22,14 @@ to make a correction. Feel free to make a pull request or [@ericwooley](https://
 * [Performance](#performance) - You will take a performance hit, but most the time it won't matter, check this section out for some info on when it might matter
     and how to minimize the damage.
 
-## Watch Out (Some things that got me)<a name="watchout"></a>
+## <a name="watchout"></a>Watch Out (Some things that got me)
 
 1. Nothing here yet, I had some stuff, but I was wrong. Check back later though!
 
 
 
 --------------------------------------------------------------------------------------------------------------
-## <a name="keyterms">Some Key terms</a>
+## <a name="keyterms"></a>Some Key terms
 
 1. keypath: Throughout these immutablejs docs, you will see this term. It is just a path to access nested properties. 
   EX: `'steve.pants.leftPocket.wallet.creditCardSlots.1'`
@@ -56,7 +56,7 @@ to make a correction. Feel free to make a pull request or [@ericwooley](https://
 
 --------------------------------------------------------------------------------------------------------------
 
-### Map <a name="Map"></a>
+### <a name="Map"></a>Map 
   _[Docs](https://facebook.github.io/immutable-js/docs/#/Map)_
   Equivalent to a regular javascript object and can be used in similar places, the disadvantage is that you need to use getters and setters.
   You can iterate over these, but the order is not guaranteed.
@@ -80,7 +80,7 @@ map1.get('a') // 1
 
 --------------------------------------------------------------------------------------------------------------
 
-### List <a name="List"></a>
+### <a name="List"></a>List 
 
 _[Docs](https://facebook.github.io/immutable-js/docs/#/List)_
 
@@ -98,7 +98,7 @@ _[Docs](https://facebook.github.io/immutable-js/docs/#/List)_
 
 --------------------------------------------------------------------------------------------------------------
 
-### Ordered Map <a name="OrderedMap"></a>
+### <a name="OrderedMap"></a>Ordered Map 
 
 _[Docs](https://facebook.github.io/immutable-js/docs/#/OrderedMap)_
   
@@ -115,7 +115,7 @@ _[Docs](https://facebook.github.io/immutable-js/docs/#/OrderedMap)_
 
 --------------------------------------------------------------------------------------------------------------
 
-### Set <a name="Set"></a>
+### <a name="Set"></a>Set 
 
 _[Docs](https://facebook.github.io/immutable-js/docs/#/Set) - [Example](http://codepen.io/ericwooley/pen/bNJRZJ)_
 
@@ -158,7 +158,7 @@ set3 = set.union(imSet2).intersect(imSet3);
 
 --------------------------------------------------------------------------------------------------------------
 
-### Ordered Set <a name="OrderedSet"></a>
+### <a name="OrderedSet"></a>Ordered Set 
 
 _[Docs](http://facebook.github.io/immutable-js/docs/#/OrderedSet)_
   
@@ -170,7 +170,7 @@ _[Docs](http://facebook.github.io/immutable-js/docs/#/OrderedSet)_
 
 --------------------------------------------------------------------------------------------------------------
 
-### Stack <a name="Stack"></a>
+### <a name="Stack"></a>Stack 
 
 _[Docs](http://facebook.github.io/immutable-js/docs/#/Stack)_
   
@@ -190,7 +190,7 @@ _[Docs](http://facebook.github.io/immutable-js/docs/#/Stack)_
 
 --------------------------------------------------------------------------------------------------------------
 
-### Seq <a name="Seq"></a>
+### <a name="Seq"></a>Seq 
 
 _[Docs](http://facebook.github.io/immutable-js/docs/#/Seq)_
   
@@ -199,7 +199,7 @@ _[Docs](http://facebook.github.io/immutable-js/docs/#/Seq)_
 
 --------------------------------------------------------------------------------------------------------------
 
-### KeyedSeq <a name="KeyedSeq"></a>
+### <a name="KeyedSeq"></a>KeyedSeq 
 
 _[Docs](http://facebook.github.io/immutable-js/docs/#/KeyedSeq)_
 
@@ -207,7 +207,7 @@ _[Docs](http://facebook.github.io/immutable-js/docs/#/KeyedSeq)_
 
 --------------------------------------------------------------------------------------------------------------
 
-### SetSeq <a name="SetSeq"></a>
+### <a name="SetSeq"></a>SetSeq 
 
 _[Docs](http://facebook.github.io/immutable-js/docs/#/SetSeq)_
   
@@ -216,7 +216,7 @@ _[Docs](http://facebook.github.io/immutable-js/docs/#/SetSeq)_
   >Because Seq are often lazy, SetSeq does not provide the same guarantee of value uniqueness as the concrete Set.
   I don't see the purpose of having a set that doesn't guaruntee uniqueness and don't recommend using this unless you have a good reason.
 
-### Record <a name="Record"></a>
+### <a name="Record"></a>Record 
 
 _[Docs](http://facebook.github.io/immutable-js/docs/#/Record)_
 
@@ -240,7 +240,7 @@ r.delete('steve');
 r.get('steve') // 'is cool'
  {% endhighlight %}
 
-## Some quick perfomance considerations.<a name="performance" ></a>
+## <a name="performance" ></a>Some quick perfomance considerations.
 
 The following is an extremely contrived example, during which Immutable performs very poorly. 
 
