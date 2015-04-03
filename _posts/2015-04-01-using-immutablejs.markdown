@@ -16,17 +16,10 @@ This post is to address which data structures you should use and you should use 
 to make a correction. Feel free to make a pull request or [@ericwooley](https://twitter.com/ericwooley)*</span>
 
 # Navigation
-* [Watch Out](#watchout)
 * [Key terms](#keyterms)
 * [Data Structures](#datastructures)
 * [Performance](#performance) - You will take a performance hit, but most the time it won't matter, check this section out for some info on when it might matter
     and how to minimize the damage.
-
-## <a name="watchout"></a>Watch Out (Some things that got me)
-
-1. Nothing here yet, I had some stuff, but I was wrong. Check back later though!
-
-
 
 --------------------------------------------------------------------------------------------------------------
 ## <a name="keyterms"></a>Some Key terms
