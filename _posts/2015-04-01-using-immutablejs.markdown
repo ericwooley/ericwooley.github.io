@@ -9,7 +9,7 @@ If you don't know what ImmutableJS is, it's written by facebook and can be used 
 [Check out this video](https://www.youtube.com/watch?v=I7IdS-PbEgI) for a better explanation than I could give you 
 
 ImmutableJS is an implementation of persistent data structures and is extremely powerful, so long as you understand and use the data structures properly.
-However, understanding (much less using) the ImmutableJS data structures are extremely hard because the docs are unhelpful and confusing.
+However, understanding (much less using) the ImmutableJS data structures are extremely hard because the API docs are unhelpful and confusing.
 This post is to address which data structures you should use and you should use and when to use them.
 
 <span style="color: #C00">*I am new to ImmutableJS, if you disagree or want
@@ -323,7 +323,7 @@ The following is an extremely contrived example, during which Immutable performs
 [withMutations](http://facebook.github.io/immutable-js/docs/#/Map/withMutations)
 
 ImmutableJS does a shallow copy of an object every time you mutate it, which can have massive perforamance implications.
-If you don't consider your data structers while working with them you can uterly destroy your performance in some cases. 
+If you don't consider your data structers while working with them you can uterly destroyd your performance in some cases. 
 [If you run performance test](http://jsperf.com/with-out-mutatable/2) it will be clear that one way of doing things is 
 extremely slow, and one is fast, but neither are nearly as fast as plain javascript.
 
