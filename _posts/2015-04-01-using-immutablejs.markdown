@@ -240,7 +240,9 @@ r.delete('steve');
 r.get('steve') // 'is cool'
  {% endhighlight %}
 
-## <a name="performance" ></a>Some quick perfomance considerations.
+--------------------------------------------------------------------------------------------------------------
+
+## <a name="performance" ></a>Some <s>quick</s> perfomance considerations.
 
 The following is an extremely contrived example, during which Immutable performs very poorly. 
 
