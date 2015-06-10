@@ -3,10 +3,11 @@ layout: post
 title:  "Up to speed with ImmutableJS"
 date:   2015-04-01 09:50:45
 categories: immutablejs react
+comments: true
 ---
 
 If you don't know what ImmutableJS is, it's written by facebook and can be used to make very fast react applications.
-[Check out this video](https://www.youtube.com/watch?v=I7IdS-PbEgI) for a better explanation than I could give you 
+[Check out this video](https://www.youtube.com/watch?v=I7IdS-PbEgI) for a better explanation than I could give you
 
 ImmutableJS is an implementation of persistent data structures and is extremely powerful, so long as you understand and use the data structures properly.
 However, understanding (much less using) the ImmutableJS data structures are extremely hard because the API docs are of incomplete, unhelpful, or confusing.
@@ -24,14 +25,14 @@ to make a correction. Feel free to make a pull request or [@ericwooley](https://
 --------------------------------------------------------------------------------------------------------------
 ## <a name="keyterms"></a>Some Key terms
 
-1. keypath: Throughout these immutablejs docs, you will see this term. It is just a path to access nested properties. 
+1. keypath: Throughout these immutablejs docs, you will see this term. It is just a path to access nested properties.
   EX: `'steve.pants.leftPocket.wallet.creditCardSlots.1'`
 
 2. [amortized](http://en.wikipedia.org/wiki/Amortized_analysis): If a data structure is "amortized O(log32 N)"
-  It means that in practical applications you can expect the data structure to perform specified operations at that 
+  It means that in practical applications you can expect the data structure to perform specified operations at that
   [Order of magnitude](http://en.wikipedia.org/wiki/Orders_of_magnitude_%28data%29).
 
-3. [stable](http://en.wikipedia.org/wiki/Sorting_algorithm#Stability): A stable sorting algorithm means that in the case two items are the same, 
+3. [stable](http://en.wikipedia.org/wiki/Sorting_algorithm#Stability): A stable sorting algorithm means that in the case two items are the same,
     the first item given to the sorting algorithm will come out first in the sorted structure.
 
 
@@ -49,8 +50,8 @@ to make a correction. Feel free to make a pull request or [@ericwooley](https://
 
 --------------------------------------------------------------------------------------------------------------
 
-### <a name="Map"></a>Map 
-  
+### <a name="Map"></a>Map
+
   _[Docs](https://facebook.github.io/immutable-js/docs/#/Map)_
 
   Equivalent to a regular javascript object and can be used in similar places, the disadvantage is that you need to use getters and setters.
@@ -67,7 +68,7 @@ map2.get('b'); // 50
 
 // Properties can not be get or set directly
 map1.a // undefined
-map1.a = 'stuff' 
+map1.a = 'stuff'
 map1.a // 'stuff'
 map1.get('a') // 1
 
@@ -75,16 +76,16 @@ map1.get('a') // 1
 
 --------------------------------------------------------------------------------------------------------------
 
-### <a name="List"></a>List 
+### <a name="List"></a>List
 
 _[Docs](https://facebook.github.io/immutable-js/docs/#/List)_
 
   Most like a javascript array in that its contents are kept in order. However, you might find this less useful than a javascript array because it's contents are not mutatable.
-  
+
 
   _Consider the following scenario:_
 
-  >You are creating a list of tasks. Seems like a great use case for a list. It is a list after all. 
+  >You are creating a list of tasks. Seems like a great use case for a list. It is a list after all.
   >You create the basic web app allowing you too create a basic task, and each task is added to the end of the list. Perfect, publish the app.
   >You are a great success and soon enough people start asking for features. The first thing they ask for is that they can edit previous tasks.
   >This would be easy to implement traditionally, however you can't simply grab the task object you associated with the one they want to click on and change it anymore.
@@ -99,16 +100,16 @@ Example Usage
 
 --------------------------------------------------------------------------------------------------------------
 
-### <a name="OrderedMap"></a>Ordered Map 
+### <a name="OrderedMap"></a>Ordered Map
 
 _[Docs](https://facebook.github.io/immutable-js/docs/#/OrderedMap)_
-  
+
   An ordered map is like a combination of a javascript object and an array. You set things with an index, and order in which is you set things is guaranteed.
 
   _While discussing List, we came to the realization that a List would no longer work for us the way an array did, Ordered Maps can fill the gap._
 
-  >Instead of using a list, use an ordered map by creating a unique index for each new task. 
-  >Preferably use an index that will sort to be the same order you are looking for. 
+  >Instead of using a list, use an ordered map by creating a unique index for each new task.
+  >Preferably use an index that will sort to be the same order you are looking for.
   >You could just use the ordered map size as the index or something like a UNIX time stamp.
 
   >The advantage of doing this is that you can find the object again later so that you can edit/replace it in the Ordered Map later.
@@ -116,16 +117,16 @@ _[Docs](https://facebook.github.io/immutable-js/docs/#/OrderedMap)_
 
 --------------------------------------------------------------------------------------------------------------
 
-### <a name="Set"></a>Set 
+### <a name="Set"></a>Set
 
 _[Docs](https://facebook.github.io/immutable-js/docs/#/Set) - [Example](http://codepen.io/ericwooley/pen/bNJRZJ)_
 
-  A set is like a list but prevents the same entry from occurring twice. Which sounds useful, until you remember that every mutation returns a new object. 
-  This is perfect for keeping a list of unique primitive values. 
+  A set is like a list but prevents the same entry from occurring twice. Which sounds useful, until you remember that every mutation returns a new object.
+  This is perfect for keeping a list of unique primitive values.
 
   _Can't we use this instead of an ordered map in our task list?_
 
-  >It's tempting to assume that we could use this as a quick way to `replace` things in our task list. 
+  >It's tempting to assume that we could use this as a quick way to `replace` things in our task list.
   >The thing to remember is that ImmutableJS objects always return a new copied object so the set would just add any mutation of a task you created,
   >and would be of no help.
 
@@ -159,24 +160,24 @@ set3 = set.union(imSet2).intersect(imSet3);
 
 --------------------------------------------------------------------------------------------------------------
 
-### <a name="OrderedSet"></a>Ordered Set 
+### <a name="OrderedSet"></a>Ordered Set
 
 _[Docs](http://facebook.github.io/immutable-js/docs/#/OrderedSet)_
-  
-  Just like a set, but will preserve the order in which things are added, so that you can iterate over in the same way later. 
-  Most the time set keeps the order also, but it's not guaranteed. 
+
+  Just like a set, but will preserve the order in which things are added, so that you can iterate over in the same way later.
+  Most the time set keeps the order also, but it's not guaranteed.
   An ordered set guarantees the order at a memory cost.
 
   _See above fore example_
 
 --------------------------------------------------------------------------------------------------------------
 
-### <a name="Stack"></a>Stack 
+### <a name="Stack"></a>Stack
 
 _[Docs](http://facebook.github.io/immutable-js/docs/#/Stack)_
-  
+
   A [stack](http://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29) is a data structure where items are always inserted at the top (or beginning) and removed from the top.
-  This data structure is extremely efficient at inserting and removing elements but horribly inefficient at accessing any element in the data structure with the exception of the first one. 
+  This data structure is extremely efficient at inserting and removing elements but horribly inefficient at accessing any element in the data structure with the exception of the first one.
 
   _When would this be useful?_
   > Because of the way immutable works, something like a state history would be perfect for a stack.
@@ -202,7 +203,7 @@ Example Usage - [CodePen](http://codepen.io/ericwooley/pen/emooGv?editors=101)
   <button class='history-button back'><i class="fa fa-angle-left"></i></button>
   <button class='history-button forward'><i class="fa fa-angle-right"></i></button>
   <h1 class='title'></h1>
-  <p class='main'></p>  
+  <p class='main'></p>
 </div>
 {% endhighlight %}
 
@@ -249,7 +250,7 @@ function renderState(){
   console.log(state.toJS());
   $('.title').html(state.title);
   $('.edit-title').val(state.title);
-  
+
   $('.main').html(state.main);
   $('.edit-main').html(state.main);
 }
@@ -263,16 +264,16 @@ $('.forward').on('click', restorefutureState);
 
 --------------------------------------------------------------------------------------------------------------
 
-### <a name="Seq"></a>Seq 
+### <a name="Seq"></a>Seq
 
 _[Docs](http://facebook.github.io/immutable-js/docs/#/Seq)_
-  
-  An Seq is like a list but its lazy, so operations you apply to them won't be performed until the sequence is accessed. Which has intense implications. 
+
+  An Seq is like a list but its lazy, so operations you apply to them won't be performed until the sequence is accessed. Which has intense implications.
   I won't say too much on sequences because this is one of the few areas that ImmutableJS is well documented.
 
 --------------------------------------------------------------------------------------------------------------
 
-### <a name="KeyedSeq"></a>KeyedSeq 
+### <a name="KeyedSeq"></a>KeyedSeq
 
 _[Docs](http://facebook.github.io/immutable-js/docs/#/KeyedSeq)_
 
@@ -280,16 +281,16 @@ _[Docs](http://facebook.github.io/immutable-js/docs/#/KeyedSeq)_
 
 --------------------------------------------------------------------------------------------------------------
 
-### <a name="SetSeq"></a>SetSeq 
+### <a name="SetSeq"></a>SetSeq
 
 _[Docs](http://facebook.github.io/immutable-js/docs/#/SetSeq)_
-  
+
   I must admit I am a big confused by this one. Feel free to fork and submit a pull request with an explanation.
   The reason I am confused is because:
   >Because Seq are often lazy, SetSeq does not provide the same guarantee of value uniqueness as the concrete Set.
   I don't see the purpose of having a set that doesn't guaruntee uniqueness and don't recommend using this unless you have a good reason.
 
-### <a name="Record"></a>Record 
+### <a name="Record"></a>Record
 
 _[Docs](http://facebook.github.io/immutable-js/docs/#/Record)_
 
@@ -317,14 +318,14 @@ r.get('steve') // 'is cool'
 
 ## <a name="performance" ></a>Some <s>quick</s> perfomance considerations.
 
-The following is an extremely contrived example, during which Immutable performs very poorly. 
+The following is an extremely contrived example, during which Immutable performs very poorly.
 
-*TL;DR* To reduce the performance hit you take by modifying large amounts of data on the same Immutable object, you can batch your changes using 
+*TL;DR* To reduce the performance hit you take by modifying large amounts of data on the same Immutable object, you can batch your changes using
 [withMutations](http://facebook.github.io/immutable-js/docs/#/Map/withMutations)
 
 ImmutableJS does a shallow copy of an object every time you mutate it, which can have massive perforamance implications.
-If you don't consider your data structers while working with them you can uterly destroyd your performance in some cases. 
-[If you run performance test](http://jsperf.com/with-out-mutatable/2) it will be clear that one way of doing things is 
+If you don't consider your data structers while working with them you can uterly destroyd your performance in some cases.
+[If you run performance test](http://jsperf.com/with-out-mutatable/2) it will be clear that one way of doing things is
 extremely slow, and one is fast, but neither are nearly as fast as plain javascript.
 
 ###Lets break down the code
@@ -372,7 +373,7 @@ Reality didn't match my expectation however (27 per second)
 for (var i = 0; i < testSize; i++) {
   jsArr.push(i);
 }
-imList = Immutable.List(jsArr); 
+imList = Immutable.List(jsArr);
 {% endhighlight %}
 
 Why didn't that work? Well transforming a giant array into a different datastructure isn't as performant as I would have hoped.
@@ -394,7 +395,7 @@ imList = imList.withMutations(function(mutatable) {
 
 --------------------------------------------------------------------------------------------------------------
 
-There is one more answer, however there are some drawbacks (15,879,672 per second). 
+There is one more answer, however there are some drawbacks (15,879,672 per second).
 
 {% highlight javascript %}
 var imRange = Immutable.Range(0, testSize);
