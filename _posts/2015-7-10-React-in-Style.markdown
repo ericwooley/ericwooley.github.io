@@ -193,6 +193,7 @@ ReactInStyle({
   }
   // ... more styles for content or whatever
 }, '.ew-lightbox-modal')
+
 {% endhighlight %}
 
 This way we have a completely reusable button, which is unlikely to polute the global varaibles, and has all the convenience of a native component, with all the flexibility of styles that you are used too.
