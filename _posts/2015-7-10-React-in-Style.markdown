@@ -4,7 +4,7 @@ title:      "CSS in your browser with React-In-Stye"
 date:       2015-06-10 09:50:45
 categories: css sass scss react javascript minification
 comments:   true
-published:  false
+published:  false 
 
 ---
 **A few quick notes**
@@ -20,6 +20,8 @@ Alright, fine.
 
 
 First off, let me introduce React-In-Style or RIS for short. RIS is differnt than other css solutions because you start with javascript objects, or even json. Don't worry, it still allows for nested selectors and media queries.
+
+RIS is not the first one to think that in browser javascript to css is better. Check out [Pete Hunts Take on css for react components.](https://github.com/petehunt/jsxstyle)
 
 ### Advantages of styles as js
 The advantages of sending your javascript styles down to the page, and processing it there, is tremendous.
@@ -120,3 +122,5 @@ ReactInStyle({
 
 
   The magic part is that it is sent tothe browser just like that, with your javascript file, so there is no need for a second request for css.
+
+_2) You decide when the styles are applied_
