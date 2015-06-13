@@ -14,12 +14,15 @@ published:  true
 
 # Get to the good stuff!
 
-Alright, fine.
+Alright, fine, here is an index.
 
-## Introducing React-In-Style (RIS)
+  1. [Introducing React-In-Style(RIS).](#RIS)
+  2. [Best practices.](#bestpractices)
+
+## <a name="RIS"></a>Introducing React-In-Style (RIS)
 
 
-First off, let me introduce React-In-Style or RIS for short. RIS is differnt than other css solutions because you start with javascript objects, or even json. Don't worry, it still allows for nested selectors and media queries.
+First off, let me introduce React-In-Style or RIS for short. RIS is different than other css solutions because you start with javascript objects, or even json. Don't worry, it still allows for nested selectors and media queries.
 
 RIS is not the first one to think that in browser javascript to css is better. Check out [Pete Hunts Take on css for react components.](https://github.com/petehunt/jsxstyle)
 
@@ -149,7 +152,7 @@ var StyleConstants = {
 
 You can also programatically manipulate the styles, for different situations. Functions, varaibles, and libraries are all at your disposal.
 
-## Best practices
+## <a name="bestpractices"></a>Best practices
 
 One of the worst parts of css is getting selector conflicts. Like sass, RIS scoped everyting to the selector you pass in. It's a good idea to give your  components a unique class name, like `.ew-my-component` (ew being my initials).
 
