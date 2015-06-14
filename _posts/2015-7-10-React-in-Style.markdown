@@ -118,11 +118,11 @@ ReactInStyle({
     border: '1px black inset',
   }
   '&:hover' {
-      backgroundColor: green',
+      backgroundColor: 'green',
       boxShadow: '2px 2px 2px 2px rgba(0,0,0,.8)'
   }
   '&:active' {
-    backgrondColor: red',
+    backgrondColor: 'red',
     boxShadow: '4px 4px 4px 4px rgba(0,0,0,.7)'
   }
 }, 'button')
