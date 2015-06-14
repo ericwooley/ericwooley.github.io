@@ -241,7 +241,10 @@ ReactInStyle({
   width: '95%',
   minHeight:  '40px',
   margin: '0 auto'
-}, '.ew-colorful-button', {queiries: ['max-width: 900px' , 'min-width: 500px']})
+}, '.ew-colorful-button', {
+  queiries: [
+    'max-width: 900px' ,
+    'min-width: 500px']})
 
 {% endhighlight %}
 
