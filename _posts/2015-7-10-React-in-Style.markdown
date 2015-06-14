@@ -9,15 +9,17 @@ published:  true
 ---
 **A few quick notes**
 
-1. React-In-Style is not only for react, maybe it is poorly named, but I don't want to change it now. It does however, mesh extremely well with reacts component based flow.
+1. [React-In-Style](https://github.com/ericwooley/react-in-style) is not only for react, maybe it is poorly named, but I don't want to change it now. It does, however, mesh extremely well with reacts component based flow.
 2. There is currently no way to auto-prefix, it's a difficult issue, and I have a few ideas to handle it. Until then consider something like [Prefix-Free](http://leaverou.github.io/prefixfree.)
 
 # Get to the good stuff!
 
 Alright, fine, here is an index.
 
-  1. [Introducing React-In-Style(RIS).](#RIS)
-  2. [Best practices.](#bestpractices)
+  1. [Introducing React-In-Style(RIS)](#RIS)
+  2. [Best practices](#bestpractices)
+  3. [Media Queries](#MediaQueries)
+  4. [Comments and Suggestions](#Comments)
 
 ## <a name="RIS"></a>Introducing React-In-Style (RIS)
 
@@ -29,9 +31,10 @@ RIS is not the first one to think that in browser javascript to css is better. C
 ### Advantages of styles in javascript
 The advantages of sending your javascript styles down to the page, and processing it there, are numerous.
 
-_1) The amount of code transfered down is much less than css, and especially sass._
+_1) The amount of code downloaded is significantly less than css, and especially sass._
 
-  Consider the following css style
+Consider the following css style
+
 {% highlight css %}
 
 button {
@@ -51,30 +54,33 @@ button:active {
 }
 {% endhighlight %}
 
-  We can clean this up with scss!
+We can clean this up with scss!
 
 {% highlight scss %}
 
 button {
-	border: none;
-	border-radius: 0;
-	background-color: blue;
+  border: none;
+  border-radius: 0;
+  background-color: blue;
 
-  &:hover, &:active {
-    border: 1px black inset;
+    &:hover, &:active {
+      border: 1px black inset;
+    }
+
+    &:hover {
+      background-color: green;
+      box-shadow: 2px 2px 2px 2px rgba(0,0,0,.8);
   }
-	&:hover {
-	    background-color: green;
-	    box-shadow: 2px 2px 2px 2px rgba(0,0,0,.8);
-  }
+
   &:active {
     backgrond-color: red;
     box-shadow: 4px 4px 4px 4px rgba(0,0,0,.7);
   }
 }
+
 {% endhighlight %}
 
-  The scss version is much cleaner IMO, less repeated code which is great for readability for us humans,  but what about loading size?
+  The scss version is much cleaner, in my opinion. There is less repeated code, which is great for readability for us humans,  but what about loading size?
   It turns into this:
 
 {% highlight scss %}
@@ -98,7 +104,7 @@ button:active {
 
 {% endhighlight %}
 
-  It actually grew in size. That sucks. What if we were to use RIS instead.
+  It actually grew in size grew in size compared to the css done by hand. What if we were to use RIS instead.
 
 {% highlight javascript %}
 
@@ -124,7 +130,7 @@ ReactInStyle({
 {% endhighlight %}
 
 
-  The magic part is that it is sent to the browser just like that, with your javascript file, so there is no need for a second request for css.
+  The magic part is that it is sent to the browser just like that, with your javascript file, so there is no need for a second request for css. You can even bundle it in with your regular minification process.
 
 _2) You decide when the styles are applied._
 
@@ -134,7 +140,7 @@ _3) Share you variables between your code and your styles._
 
 With react in style, you can use JSON files or javascript objects to keep track of your styles. Need to set a timeout for something to happen when an animation finishes? Place that time in a style constant and use it in both your style and your code. From then on you can change that one number, and the animation time will reflect in your code and in your css.
 
-Another benefit of this is that it's self documenting.
+Another benefit of this approach, is that it's self documenting.
 
 {% highlight javascript %}
 
@@ -154,7 +160,7 @@ You can also pragmatically manipulate the styles, for different situations. Func
 
 ## <a name="bestpractices"></a>Best practices
 
-One of the worst parts of css is getting selector conflicts. Like sass, RIS scoped everything to the selector you pass in. It's a good idea to give your  components a unique class name, like `.ew-my-component` (ew being my initials).
+One of the worst parts of css is getting selector conflicts. Like sass, RIS scoped everything to the selector you pass in. It's a good idea to give your  components a unique class name, like `.ew-my-component` (ew being my initials) so that all styles will only affect the children of that selector.
 
 You should also only give each component the minimum amount of style it needs to function. In the case of our button, assuming our requirements were for  colors and active/hover states. You wouldn't want to apply any kind of positioning or width on this component. Leave positioning of a component to it's parent.
 
@@ -200,3 +206,46 @@ ReactInStyle({
 {% endhighlight %}
 
 This way we have a completely reusable button, which is unlikely to pollute the global variables, and has all the convenience of a native component, with all the flexibility of styles that you are used too.
+
+## ## <a name="MediaQueries"></a>Media Queries and responsive design
+
+Media queries are essential to every modern stylesheet, and we didn't forget about them in RIS.
+
+Apply any media queries you want to the styles you are passing in.
+
+This example shows how to make our button full width in phablet phones. (I just made up some screen sizes, don't really use those sizes.)
+
+{% highlight javascript %}
+
+// Generic styles.
+ReactInStyle({
+  border: 'none',
+  borderRadius: '0',
+  backgroundColor: 'blue',
+
+  '&:hover, &:active' {
+    border: '1px black inset',
+  }
+  '&:hover' {
+      backgroundColor: green',
+      boxShadow: '2px 2px 2px 2px rgba(0,0,0,.8)'
+  }
+  '&:active' {
+    backgrondColor: red',
+    boxShadow: '4px 4px 4px 4px rgba(0,0,0,.7)'
+  }
+}, '.ew-colorful-button')
+
+// Phablet styles, make button fill width and be a touchable height.
+ReactInStyle({
+  width: '95%',
+  minHeight:  '40px',
+  margin: '0 auto'
+}, '.ew-colorful-button', {queiries: ['max-width: 900px' , 'min-width: 500px']})
+
+{% endhighlight %}
+
+
+## <a name="Comments"></a> Have a comment or suggestion?
+[RIS](https://github.com/ericwooley/react-in-style) is still extremely young, and as such, is open minded about changing it's direction. Leave a comment, make an [issue](https://github.com/ericwooley/react-in-style/issues), or create a pull request. Your opinion will be taken into account.
+
