@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "CSS in your browser with React-In-Stye"
+title:      "CSS from javascript with React-In-Stye"
 date:       2015-06-10 09:50:45
 categories: css sass scss react javascript minification
 comments:   true
