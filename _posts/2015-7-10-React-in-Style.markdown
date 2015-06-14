@@ -9,8 +9,8 @@ published:  true
 ---
 **A few quick notes**
 
-1. React-In-Style is not only for react, maybe it is poorly named, but I don't want to change it now. It does however, mesh extremely well with reacts compenent based flow.
-2. There is currently no way to autoprefix, it's a difficult issue, and I have a few ideas to handle it. Until then consider something like [Prefix-Free](http://leaverou.github.io/prefixfree)
+1. React-In-Style is not only for react, maybe it is poorly named, but I don't want to change it now. It does however, mesh extremely well with reacts component based flow.
+2. There is currently no way to auto-prefix, it's a difficult issue, and I have a few ideas to handle it. Until then consider something like [Prefix-Free](http://leaverou.github.io/prefixfree.)
 
 # Get to the good stuff!
 
@@ -26,8 +26,8 @@ First off, let me introduce React-In-Style or RIS for short. RIS is different th
 
 RIS is not the first one to think that in browser javascript to css is better. Check out [Pete Hunts Take on css for react components.](https://github.com/petehunt/jsxstyle)
 
-### Advantages of styles as js
-The advantages of sending your javascript styles down to the page, and processing it there, is tremendous.
+### Advantages of styles in javascript
+The advantages of sending your javascript styles down to the page, and processing it there, are numerous.
 
 _1) The amount of code transfered down is much less than css, and especially sass._
 
@@ -98,7 +98,7 @@ button:active {
 
 {% endhighlight %}
 
-  It actualy grew in size. That sucks. What if we were to use RIS instead.
+  It actually grew in size. That sucks. What if we were to use RIS instead.
 
 {% highlight javascript %}
 
@@ -150,13 +150,13 @@ var StyleConstants = {
 
 {% endhighlight %}
 
-You can also programatically manipulate the styles, for different situations. Functions, varaibles, and libraries are all at your disposal.
+You can also pragmatically manipulate the styles, for different situations. Functions, variables, and libraries are all at your disposal.
 
 ## <a name="bestpractices"></a>Best practices
 
-One of the worst parts of css is getting selector conflicts. Like sass, RIS scoped everyting to the selector you pass in. It's a good idea to give your  components a unique class name, like `.ew-my-component` (ew being my initials).
+One of the worst parts of css is getting selector conflicts. Like sass, RIS scoped everything to the selector you pass in. It's a good idea to give your  components a unique class name, like `.ew-my-component` (ew being my initials).
 
-You should also only give each component the minimum amount of style it needs to function. in the case of our button, assuming our requirements were for  colors and active/hover states. You wouldn't want to apply any kind of positioning or width on this component. Leave positioning of a component to it's parent.
+You should also only give each component the minimum amount of style it needs to function. In the case of our button, assuming our requirements were for  colors and active/hover states. You wouldn't want to apply any kind of positioning or width on this component. Leave positioning of a component to it's parent.
 
 {% highlight javascript %}
 
@@ -199,4 +199,4 @@ ReactInStyle({
 
 {% endhighlight %}
 
-This way we have a completely reusable button, which is unlikely to polute the global varaibles, and has all the convenience of a native component, with all the flexibility of styles that you are used too.
+This way we have a completely reusable button, which is unlikely to pollute the global variables, and has all the convenience of a native component, with all the flexibility of styles that you are used too.
