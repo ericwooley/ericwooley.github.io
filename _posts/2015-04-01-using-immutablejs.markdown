@@ -13,9 +13,6 @@ ImmutableJS is an implementation of persistent data structures and is extremely 
 However, understanding (much less using) the ImmutableJS data structures are extremely hard because the API docs are of incomplete, unhelpful, or confusing.
 This post is to address which data structures you should use and you should use and when to use them.
 
-<span style="color: #C00">*I am new to ImmutableJS, if you disagree or want
-to make a correction. Feel free to make a pull request or [@ericwooley](https://twitter.com/ericwooley)*</span>
-
 # Navigation
 * [Key terms](#keyterms)
 * [Data Structures](#datastructures)
