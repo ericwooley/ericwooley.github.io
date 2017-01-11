@@ -4,7 +4,7 @@ title:      "I almost like React Hot Loader"
 date:       2015-12-09 11:45:45
 categories: react react-hot-loader build-systems webpack
 comments:   true
-published:  true
+published:  false
 
 ---
 If you haven't seen it yet, checkout [react hot loader](https://github.com/gaearon/react-hot-loader).
