@@ -1,0 +1,11 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "9H6QCDNX24.com.robotsandpencils.itglue-dev",
+                "paths": [ "/*"]
+            }
+        ]
+    }
+}
